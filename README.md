@@ -28,7 +28,7 @@ This library offers 3 modules: Single, Pair and Array.
 
 See [the documentation for details][range_operations_documentation].
 
-[range_operations_documentation] https://??
+[range_operations_documentation]: http://www.rubydoc.info/gems/range_operations
 
 # Notes
 
