@@ -1,3 +1,8 @@
+[![Build Status](https://secure.travis-ci.org/leanpanda-com/range_operations.svg)][Continuous Integration]
+
+[Source Code]: https://github.org/leanpanda-com/range_operations "Source code at GitHub"
+[Continuous Integration]: http://travis-ci.org/leanpanda-com/range_operations "Build status by Travis-CI"
+
 # RangeOperations
 
 Perform operations on arrays of ranges.
