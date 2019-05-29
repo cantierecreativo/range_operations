@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/MethodLength
 module RangeOperations; end
 
 module RangeOperations::Array
@@ -8,47 +9,42 @@ module RangeOperations::Array
 
   # Returns a sorted array with overlapping and contiguous items merged
   def self.simplify(ranges)
-    straight = ranges.map { |r| RangeOperations::Single.straighten(r) }
+    straight = ranges.map { |range| RangeOperations::Single.straighten(range) }
     sorted = straight.sort_by(&:begin)
 
-    [].tap do |acc|
-      sorted.each do |r|
+    sorted.each.with_object([]) do |range, acc|
+      acc <<
         if acc.empty?
-          acc << r
+          range
+        elsif acc[-1].end < range.begin
+          range
         else
-          if acc[-1].end < r.begin
-            acc << r
-          else
-            acc << RangeOperations::Pair.merge(acc.pop, r)
-          end
+          RangeOperations::Pair.merge(acc.pop, range)
         end
-      end
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   # Returns an array of ranges resulting from removing from `range`
   # any parts overlapped by any of `subranges`.
   def self.subtract(range, subranges)
     simple = simplify(subranges)
+    start = range.begin
 
-    [].tap do |acc|
-      start = range.begin
+    result = simple.each.with_object([]) do |subrange, acc|
+      next if subrange.end < start
 
-      simple.each do |sr|
-        next if sr.end < start
-
-        if sr.begin > start
-          finish = [sr.begin, range.end].min
-          acc << (start .. finish)
-        end
-
-        start = sr.end
-        break if start > range.end
+      if subrange.begin > start
+        finish = [subrange.begin, range.end].min
+        acc << (start..finish)
       end
 
-      if start < range.end
-        acc << (start .. range.end)
-      end
+      start = subrange.end
     end
+
+    result << (start..range.end) if start < range.end
+    result
   end
+  # rubocop:enable Metrics/AbcSize
 end
+# rubocop:enable Metrics/MethodLength

@@ -2,12 +2,14 @@ module RangeOperations; end
 
 module RangeOperations::Single
   # True if begin is greater than end
-  def self.backwards?(r)
-    r && r.begin > r.end
+  def self.backwards?(range)
+    return false if !range
+
+    range.begin > range.end
   end
 
   # Inverts backwards Ranges, leaves others unchanged
-  def self.straighten(r)
-    r.begin <= r.end ? r : r.end .. r.begin
+  def self.straighten(range)
+    range.begin <= range.end ? range : range.end..range.begin
   end
 end

@@ -1,0 +1,4 @@
+inherit_from: https://raw.githubusercontent.com/leanpanda-com/rubocop/master/rubocop-rspec.yml
+
+RSpec/NestedGroups:
+  Max: 4

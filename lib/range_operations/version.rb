@@ -1,9 +1,9 @@
-module RangeOperations
-  module Version #:nodoc:
-    MAJOR = 0
-    MINOR = 1
-    TINY  = 0
+module RangeOperations; end
 
-    STRING = [MAJOR, MINOR, TINY].join(".")
-  end
+module RangeOperations::Version #:nodoc:
+  MAJOR = 0
+  MINOR = 1
+  TINY  = 0
+
+  STRING = [MAJOR, MINOR, TINY].join(".")
 end
